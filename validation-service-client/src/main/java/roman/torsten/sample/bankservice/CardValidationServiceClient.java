@@ -10,6 +10,7 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -42,7 +43,6 @@ public class CardValidationServiceClient implements CardValidationService {
                     NoopHostnameVerifier.INSTANCE);
 
             HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
-
             requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -54,6 +54,7 @@ public class CardValidationServiceClient implements CardValidationService {
     public CardValidationResult validate(Card card) {
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("roman", "torsten"));
         ResponseEntity<CardValidationResult> response = restTemplate.postForEntity("https://localhost:8082/validate", card, CardValidationResult.class);
         return response.getBody();
     }
@@ -66,6 +67,7 @@ public class CardValidationServiceClient implements CardValidationService {
             result = client.validate(new Card("4234", null));
             System.out.println(result);
         } catch (Exception e) {
+            e.getMessage();
             e.printStackTrace();
         }
     }
