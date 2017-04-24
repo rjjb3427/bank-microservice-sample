@@ -25,7 +25,7 @@ import java.security.KeyStore;
 @Service
 public class CardValidationServiceClient implements CardValidationService {
 
-    private static final String keyStoreFile = "validation-service/keystore.p12";
+    private static final String keyStoreFile = "keystore.p12";
     private static final String keyStorePassword = "mypassword";
 
     private static final ClientHttpRequestFactory requestFactory;

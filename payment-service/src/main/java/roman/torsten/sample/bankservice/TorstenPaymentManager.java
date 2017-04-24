@@ -53,13 +53,16 @@ public class TorstenPaymentManager implements PaymentService {
             System.out.println("From " + request.getFromCard() + ", to " + request.getToCard());
             Account fromAccount = accountService.get(request.getFromCard());
             Account toAccount = accountService.get(request.getToCard());
+            System.out.println("Credit operation for " + fromAccount);
             TransferResult creditResult = bankServiceProvider.get(fromAccount.getBankId()).transfer(new TransferRequest(fromAccount.getId(), request.getBalance(), TransferRequest.Operation.Credit));
             if (creditResult.getStatus() == TransferStatus.Success) {
+                System.out.println("Credit operation was successful, now debit operation for " + toAccount);
                 TransferResult debitResult = bankServiceProvider.get(toAccount.getBankId()).transfer(new TransferRequest(toAccount.getId(), request.getBalance(), TransferRequest.Operation.Debit));
                 return new PaymentResult(paymentId, debitResult.getStatus() == TransferStatus.Success ? PaymentStatus.Success : PaymentStatus.Submitted);
             }
             return new PaymentResult(paymentId, PaymentStatus.Fail);
         } catch (Exception e) {
+            System.out.println("Exception catches: " + e.getMessage());
             return new PaymentResult(paymentId, PaymentStatus.Fail);
         }
     }
