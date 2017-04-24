@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bank-microservice-bank-grpc</artifactId>
+    <artifactId>bank-microservice-bank-jsonrpc</artifactId>
 
     <parent>
         <groupId>roman.torsten.sample</groupId>
@@ -17,17 +17,13 @@
             <artifactId>bank-microservice-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>roman.torsten.sample</groupId>
-            <artifactId>bank-microservice-api-grpc</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <version>${spring.boot.starter.version}</version>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!--<version>${spring.boot.starter.version}</version>-->
         </dependency>
         <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-netty</artifactId>
+            <groupId>com.github.briandilley.jsonrpc4j</groupId>
+            <artifactId>jsonrpc4j</artifactId>
         </dependency>
     </dependencies>
 
@@ -39,5 +35,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -43,6 +43,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.briandilley.jsonrpc4j</groupId>
+            <artifactId>jsonrpc4j</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty</artifactId>
             <version>1.2.0</version>

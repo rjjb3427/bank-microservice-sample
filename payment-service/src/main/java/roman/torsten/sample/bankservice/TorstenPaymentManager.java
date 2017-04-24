@@ -62,7 +62,8 @@ public class TorstenPaymentManager implements PaymentService {
             }
             return new PaymentResult(paymentId, PaymentStatus.Fail);
         } catch (Exception e) {
-            System.out.println("Exception catches: " + e.getMessage());
+            System.out.println("!!! Exception: " + e.getMessage());
+            e.printStackTrace();
             return new PaymentResult(paymentId, PaymentStatus.Fail);
         }
     }

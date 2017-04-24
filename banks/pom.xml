@@ -15,6 +15,7 @@
     <modules>
         <module>offline-bank</module>
         <module>grpc-bank</module>
+        <module>jsonrpc-bank</module>
     </modules>
 
 </project>
