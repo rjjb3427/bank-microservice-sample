@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 import roman.torsten.sample.bankservice.api.Account;
 import roman.torsten.sample.bankservice.api.CardValidationResult;
 import roman.torsten.sample.bankservice.api.HistoryPaymentRecord;
-import roman.torsten.sample.bankservice.api.TransferRequest;
 import roman.torsten.sample.bankservice.api.PaymentRequest;
 import roman.torsten.sample.bankservice.api.PaymentResult;
 import roman.torsten.sample.bankservice.api.PaymentStatus;
+import roman.torsten.sample.bankservice.api.TransferRequest;
 import roman.torsten.sample.bankservice.api.TransferResult;
 import roman.torsten.sample.bankservice.api.TransferStatus;
 import roman.torsten.sample.bankservice.api.service.CardValidationService;
 import roman.torsten.sample.bankservice.api.service.PaymentService;
+import roman.torsten.sample.bankservice.notification.Notifier;
+
+import java.util.List;
 
 @RestController
 public class TorstenPaymentManager implements PaymentService {
@@ -33,6 +36,9 @@ public class TorstenPaymentManager implements PaymentService {
     @Autowired
     private BankServiceProvider bankServiceProvider;
 
+    @Autowired
+    private List<Notifier> notifierList;
+
     @RequestMapping("/ping")
     public String ping() {
         return "rest contoller is alive";
@@ -42,6 +48,8 @@ public class TorstenPaymentManager implements PaymentService {
     @Override
     public PaymentResult perform(@RequestBody PaymentRequest request) {
         String paymentId = transactionIdGenerator.generate();
+        notifierList.forEach((notifier) -> notifier.send(request));
+
         try {
             System.out.println("Starting transaction: " + paymentId);
             if (cardValidationService.validate(request.getFromCard()).getStatus() != CardValidationResult.Status.Ok) {
