@@ -10,6 +10,7 @@ import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 import roman.torsten.sample.bankservice.api.PaymentRequest;
+import roman.torsten.sample.bankservice.api.PaymentResult;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -60,7 +61,6 @@ public class WebsocketsNotifier implements Notifier {
         SockJsClient sockJsClient = new SockJsClient(Collections.singletonList(new WebSocketTransport(new StandardWebSocketClient())));
         handler = new Handler();
         sockJsClient.doHandshake(handler, "ws://localhost:9090/request");
-
     }
 
     @Override
@@ -68,4 +68,8 @@ public class WebsocketsNotifier implements Notifier {
         handler.send(request);
     }
 
+    @Override
+    public void send(PaymentResult result) {
+
+    }
 }

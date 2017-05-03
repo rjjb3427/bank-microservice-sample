@@ -30,6 +30,7 @@
         <module>validation-service-client</module>
         <module>banks</module>
         <module>websocket-server</module>
+        <module>websocket-stomp-server</module>
         <module>payment-service</module>
         <module>payment-service-client</module>
     </modules>

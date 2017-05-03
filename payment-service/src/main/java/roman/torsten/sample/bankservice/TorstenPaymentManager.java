@@ -47,9 +47,14 @@ public class TorstenPaymentManager implements PaymentService {
     @RequestMapping(value = "/payment", method = RequestMethod.POST)
     @Override
     public PaymentResult perform(@RequestBody PaymentRequest request) {
-        String paymentId = transactionIdGenerator.generate();
         notifierList.forEach((notifier) -> notifier.send(request));
+        PaymentResult result = process(request);
+        notifierList.forEach((notifier -> notifier.send(result)));
+        return result;
+    }
 
+    private PaymentResult process(PaymentRequest request) {
+        String paymentId = transactionIdGenerator.generate();
         try {
             System.out.println("Starting transaction: " + paymentId);
             if (cardValidationService.validate(request.getFromCard()).getStatus() != CardValidationResult.Status.Ok) {

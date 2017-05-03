@@ -10,6 +10,7 @@ public class TorstenAccountService implements AccountService {
     @Override
     public Account get(Card card) {
 //        return new Account(card.getId(), "2".equals(card.getId()) ? "grpcBankServiceClient" : "offlineBankService", new Money(100000, "rub"));
-        return new Account(card.getId(), "jsonBankServiceClient", new Money(100000, "rub"));
+//        return new Account(card.getId(), "jsonBankServiceClient", new Money(100000, "rub"));
+        return new Account(card.getId(), "offlineBankService", new Money(100000, "rub"));
     }
 }
