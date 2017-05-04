@@ -17,10 +17,7 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-            System.out.println("Account store starting ...");
-            for (String arg : args) {
-                System.out.println(arg);
-            }
+            System.out.println("Validation service started");
         };
     }
 }

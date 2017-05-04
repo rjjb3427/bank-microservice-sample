@@ -62,9 +62,7 @@ public class CardValidationServiceClient implements CardValidationService {
     public static void main(String[] args) {
         try {
             CardValidationServiceClient client = new CardValidationServiceClient();
-            CardValidationResult result = client.validate(new Card("4234", "romeo"));
-            System.out.println(result);
-            result = client.validate(new Card("4234", null));
+            CardValidationResult result = client.validate(new Card("4234", "roman"));
             System.out.println(result);
         } catch (Exception e) {
             e.getMessage();
